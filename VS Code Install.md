@@ -15,11 +15,11 @@
 
 > **If step A doesn't work for you, try step B instead!**
 
-- **Step B1** In Visual Studio Code, locate the extensions :extensions: tab on the sidebar.
+- **Step B1** In Visual Studio Code, locate the extensions tab on the sidebar.
 - **Step B2** In the search bar of the extensions tab, type `C# Dev Kit`.
 - **Step B3** Find the 'C# Dev Kit' by Microsoft extension, select and download it.
 
-TODO IMAGE HERE
+![Image of C# Dev Kit extension](Assets/Images/csharpdevkit.png)
 ‎ 
 - **Step 2** Make sure you are clicked out of the search bar and press `cmd` + `shift` + `p` to open the 'Command Pallet'
 - **Step 3** Type `.NET: Sign into Visual Studio account` and press `enter` (or click on the option at top of the screen)
@@ -32,10 +32,10 @@ TODO IMAGE HERE
 - **Step 2** Choose the template you want to use (for this class choose `Console App`)
 - **Step 3** Give the project a name and press `enter`
 - **Step 4** You will be asked if you want to use the current directory or change it (this is where you project gets saved), if you like the default choose the first option. Otherwise pick the second option, choose a new folder location, then pick the first option.
-- **Step 5** Click `Create project', it should now appear under the 'Explorer' :explorer: tab.
+- **Step 5** Click `Create project', it should now appear under the 'Explorer' tab.
 
 # 5. Running A Project
-- **Step 1** While in the main `.cs` file of your project, press the :run: button in the top right of the editor.
+- **Step 1** While in the main `.cs` file of your project, press the button in the top right of the editor.
 > **You should see a new terminal in the bottom of the editor, if it says `Press any key to close` and doesn't go away, click on the terminal and press any key. After it is gone you should have a new terminal with your project's output.
 
 # 4. Creating A Project
@@ -45,8 +45,8 @@ TODO IMAGE HERE
 - **Step 2** Choose the template you want to use (for this class choose `Console App`)
 - **Step 3** Give the project a name and press `enter`
 - **Step 4** You will be asked if you want to use the current directory or change it (this is where you project gets saved), if you like the default choose the first option. Otherwise pick the second option, choose a new folder location, then pick the first option.
-- **Step 5** Click `Create project', it should now appear under the 'Explorer' :explorer: tab.
+- **Step 5** Click `Create project', it should now appear under the 'Explorer' tab.
 
 # 5. Running A Project
-- **Step 1** While in the main `.cs` file of your project, press the :run: button in the top right of the editor.
+- **Step 1** While in the main `.cs` file of your project, press the button in the top right of the editor.
 > **You should see a new terminal in the bottom of the editor, if it says `Press any key to close` and doesn't go away, click on the terminal and press any key. After it is gone you should have a new terminal with your project's output.**
