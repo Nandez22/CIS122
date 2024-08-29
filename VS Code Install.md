@@ -36,4 +36,4 @@
 
 # 5. Running A Project
 - **Step 1** While in the main `.cs` file of your project, press the "play" button in the top right of the editor.
-> **You should see a new terminal in the bottom of the editor, if it says `Press any key to close` and doesn't go away, click on the terminal and press any key. After it is gone you should have a new terminal with your project's output.
+> **You should see a new terminal in the bottom of the editor, if it says `Press any key to close` and doesn't go away, click on the terminal and press any key. After it is gone you should have a new terminal with your project's output.**
