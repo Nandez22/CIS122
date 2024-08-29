@@ -31,9 +31,14 @@
 
 - **Step 2** Choose the template you want to use (for this class choose `Console App`)
 - **Step 3** Give the project a name and press `enter`
-- **Step 4** You will be asked if you want to use the current directory or change it (this is where you project gets saved), if you like the default choose the first option. Otherwise pick the second option, choose a new folder location, then pick the first option.
+- **Step 4** You will be asked if you want to use the current directory or change it (this is where you project gets saved), if you like the default choose the first option. Otherwise, pick the second option, choose a new folder location, then pick the first option.
 - **Step 5** Click `Create project', it should now appear under the 'Explorer' tab.
 
 # 5. Running A Project
 - **Step 1** While in the main `.cs` file of your project, press the "play" button in the top right of the editor.
-> **You should see a new terminal in the bottom of the editor, if it says `Press any key to close` and doesn't go away, click on the terminal and press any key. After it is gone you should have a new terminal with your project's output.**
+> **You should see a new terminal at the bottom of the editor, if it says `Press any key to close` and doesn't go away, click on the terminal and press any key. After it is gone you should have a new terminal with your project's output.**
+
+> [!IMPORTANT]
+> In class when told to make a new class, click on the 'new file' button in the explorer. Your file name should end with `.cs`.
+
+> **I will make a guide with tips on using VS Code with C# that will be updated throughout the semester as we all learn more about it.**
