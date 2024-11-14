@@ -275,10 +275,62 @@ So, running the inner loop for a 2nd time, brought the 2nd max, to the 2nd right
       <td>$${\color{green} 6}$$</td>
     </tr></table></td></tr></table></br>
 
-
+The result of the outer-loop is a sorted array! While there is not much more to address in this section, I want to leave you with another question that will be answered in the [Optimization](#OPTIMIZATION) section.</br>
+If we are given an array of length 5, how many time will the outer loop run? How about the inner loop>
 
 ## **CODE**
-explanation...
+While algorithms can seem a bit daunting at first (yes even the simple ones), usually their implementation is quite elegant, so don't feel bad if you don't know how to code a bubble sort after reading about it. While the previous section was more open ended and much less technical, this one will be more direct. 
+
+So without further ado, how do we code Bubble Sort, or any algorithm for that matter?
+
+The best way to go about solving these 'bigger' problems is to break them into their most granular parts. In this case the smallest problem we need to solve is swapping two array items. 
+
+In some languages (like python), swapping is trivial. Unfortunatly using the best programming language comes with some downsides _(even saints sin)_, and swapping tends to throw off new programmers.
+
+Most people immeadietly jump to something like:
+```cs
+int a = 5;
+int b = 6;
+
+a = b;
+b = a;
+```
+
+But think for a minute, what would the output of this be?</br>
+It turns out that both `a = 6` and `b = 6`.
+It's like giving two apples to two people and having them swap apples without ever holding two at the same time. It cannot be done. Instead you need a third person:
+```cs
+int temp;
+int a = 5;
+int b = 6;
+
+temp = a;
+a = b;
+b = temp;
+```
+Now our program properly makes `a = 6` and `b = 5`! With that the core of our problem is solved, but we only have a program that can swap two numbers...
+Think back to the [Inner Loop](#Inner-Loop) segment of this doc, we only wanted to swap two items in the array if a particular condition was true.
+
+This is our next problem, we only want to run the code we wrote if and only if a swap is needsed. As discussed before we only swap two values if the current value is greater than the next:
+```cs
+int temp;
+
+if(arr[i] > arr[i+1]){
+    temp = arr[i];
+    arr[i] = arr[i+1];
+    arr[i+1] = temp;
+}
+```
+This problem sounded simple, because it is. It only required a single if statment to solve, but you may have noticed some additional changes to our code. Most notably, we have replaced `a` and `b` with `arr[i]` and `arr[i+1]` respectivly. For these's changes we have made a couple of assumptions:
+1. The array is named `arr`, and it holds numbers
+2. `i` is declared somewhere
+
+These assumptions will be addressed in the future, but don't freak out about variables coming from nowhere.</br>
+
+So now we have a code block that will swap two items in an array if and only if the current `i`th element is greater than the next `i+1`th. This brings us to the natural question of where does `i` come from? The answer to that is a loop...</br>
+
+Here is where the document diverges a bit, many programmers prefer different loops for a variety of reasons, most of which are valid. At the end of the day it's what you like and what makes the most sense for you. So, taking that into consideration the next portion of this document is split into two sections:
+_(click on them)_
 
 <details>
   <summary>Using For Loops</summary>
