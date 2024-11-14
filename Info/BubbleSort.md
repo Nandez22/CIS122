@@ -1,3 +1,4 @@
+<!-- this .md is a nightmare... hope someone finds it helpful :) (they better)-->
 # **BUBBLE SORT**
   ## **INTRO**
   Bubble sort is one of ***MANY*** sorting algorithms you will learn about as a programmer, it is also one of the first. Bubble Sort is considered to be one of the simplest algorithms, so it makes for a great start! While this is not an algotithms course, we don't want you to have a stroke when you get there, so it's best to dip your feet in now before you meet QuickSort.
@@ -19,9 +20,12 @@ Bubble Sort gets it's name from the idea that larger values _"bubble"_ their way
   Starting state:
   |1|5|4|6|3|2|
   |-|-|-|-|-|-|
+  </br>
 
-  The inner loop makes comparisons of index i to index i + 1. (If we are trying to move the greatest value to the rightmost position in the list, when would we want to swap the two values we are comparing?)
+  The inner loop makes comparisons of index i to index i + 1. (If we are trying to move the greatest value to the rightmost position in the list, when would we want to swap the two values we are comparing?) -- Just some food for thought.</br>
 
+  Lets start by checking index 0 and 1:</br>
+  Looking at the two values, since the greater value is already to the right, we don't need to do anything... on to the next.
   <!-- Pain -->
   <table><tr>
       <td>$${\color{purple} 1}$$</td>
@@ -30,23 +34,83 @@ Bubble Sort gets it's name from the idea that larger values _"bubble"_ their way
       <td>6</td>
       <td>3</td>
       <td>2</td>
-    </tr>
-  </table>
+    </tr></table></br>
   
-  Looking at the two values, since the greater value is already to the right, we don't need to do anything... on to the next.
-  <table><tr>
+  Here we can clearly see that 5 > 4 _(hint hint...)_ since the greater value is to the left, they need to be swapped. So:
+<!-- wow I didn't think it could get worse! -->
+<table><tr><td><table><tr>
       <td>1</td>
-      <td>$${\color{purple} 5}$$</td>
-      <td>$${\color{purple} 4}$$</td>
+      <td>$${\color{red} 5}$$</td>
+      <td>$${\color{red} 4}$$</td>
       <td>6</td>
       <td>3</td>
       <td>2</td>
-    </tr>
-  </table>
-  
-Here we can clearly see that 5 > 4 _(hint hint...)_ since the greater value is to the left, they need to be swapped.
-  
-  ### **Outer Loop**
+    </tr></table></td>
+  <td>--></td>
+  <td><table><tr>
+      <td>1</td>
+      <td>$${\color{purple} 4}$$</td>
+      <td>$${\color{purple} 5}$$</td>
+      <td>6</td>
+      <td>3</td>
+      <td>2</td>
+    </tr></table></td></tr></table></br>
+
+I'll just give you a guess what happens next...</br>
+If you said nothing you not only got the question correct, but you also predicted what you get for doing so!
+<table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>$${\color{purple} 5}$$</td>
+      <td>$${\color{purple} 6}$$</td>
+      <td>3</td>
+      <td>2</td>
+    </tr></table></br>
+
+Moving forward we take a look at index 3 and 4.
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>5</td>
+      <td>$${\color{red} 6}$$</td>
+      <td>$${\color{red} 3}$$</td>
+      <td>2</td>
+    </tr></table></td>
+
+<td>--></td>  
+
+  <td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>5</td>
+      <td>$${\color{purple} 3}$$</td>
+      <td>$${\color{purple} 6}$$</td>
+      <td>2</td>
+    </tr></table></td></tr></table></br>
+
+And finally for the last itteration of our inner loop, we take a look at index 4 and 5. Clearly they need to be swapped, but you may notice that now 6 is marked green. This is because we know for a fact it is in the correct place. Think about it for a minute, is it possible for the max number of an array to not end up all the way to the right using this method?
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>5</td>
+      <td>3</td>
+      <td>$${\color{red} 6}$$</td>
+      <td>$${\color{red} 2}$$</td>
+    </tr></table></td>
+
+<td>--></td>  
+
+  <td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>5</td>
+      <td>3</td>
+      <td>$${\color{purple} 2}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table></br>
+
+
+### **Outer Loop**
 
 ## **CODE**
 ## **OPTIMIZATION**
