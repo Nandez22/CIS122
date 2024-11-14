@@ -1,4 +1,9 @@
 <!-- this .md is a nightmare... hope someone finds it helpful :) (they better)-->
+> [!CAUTION]
+> This guide is incomplete. The main explanation is fine, but the [Coding](#CODE), and [Optimization](#OPTIMIZATION) sections need a lot of work. As of now its 2:15 AM so I am going to bed, I will update this throughout the day tomorrow to be better.
+> </br>
+> Cheers!
+
 # **BUBBLE SORT**
   ## **INTRO**
   Bubble sort is one of ***MANY*** sorting algorithms you will learn about as a programmer, it is also one of the first. Bubble Sort is considered to be one of the simplest algorithms, so it makes for a great start! While this is not an algotithms course, we don't want you to have a stroke when you get there, so it's best to dip your feet in now before you meet QuickSort.
@@ -38,6 +43,7 @@ Bubble Sort gets it's name from the idea that larger values _"bubble"_ their way
   
   Here we can clearly see that 5 > 4 _(hint hint...)_ since the greater value is to the left, they need to be swapped. So:
 <!-- wow I didn't think it could get worse! -->
+<!-- this whole table thing is actually horrible, the fact github scrapes html SO violently makes this really annoying, and the fact that mermaid (a platform made for representing data BY PROGRAMMERS) has no good way to represent arrays is insane -->
 <table><tr><td><table><tr>
       <td>1</td>
       <td>$${\color{red} 5}$$</td>
@@ -109,8 +115,239 @@ And finally for the last itteration of our inner loop, we take a look at index 4
       <td>$${\color{green} 6}$$</td>
     </tr></table></td></tr></table></br>
 
+So, I think it's fair that I summarize what's going on here. We loop through the array, and at each index (i) we compare it's value (arr[i]) to the index ahead of it (arr[i+1]). If the former is greater (arr[i] > arr[i+1]), that means the bigger value is to the left. We don't want that (huge no no). Our solution is to flip the values. _While the logistics of doing so have an additional layer of complexity to them, I am going to save that for the [Code](#CODE) section_. After we decided if i and i+1 need to flip, we move on. Notice that when we move to a new index (after 0), the highest value we've seen up to that point is always at i, unless we run into a greater number. So if you think about it, we are basically dragging the biggest value we can find along to the end, if we come across a larger value on the way, we grab that instead. The end result of this is that we always end up with the largest value all the way to the right.</br>
+That is the entire purpose of the inner loop.
+
 
 ### **Outer Loop**
+The outer loop is a little less grand, and really only serves one purpose, to repeat the inner loop. As we in the [Inner Loop](#Inner-Loop) section, the inner loop puts the greatest value at the very end of the array.</br>
+In our example we started with:
+<table><tr>
+      <td>1</td>
+      <td>5</td>
+      <td>4</td>
+      <td>6</td>
+      <td>3</td>
+      <td>2</td>
+    </tr></table>
+And ended with:
+  <table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>5</td>
+      <td>3</td>
+      <td>2</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table>
+But, what would happen if we ran it again? Take a second to think it out or write it down.
+Just as a refresher we will go through the steps of one itteraton:
+<!-- i = 0 -->
+<table><tr>
+      <td>$${\color{purple} 1}$$</td>
+      <td>$${\color{purple} 4}$$</td>
+      <td>5</td>
+      <td>3</td>
+      <td>2</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table>
+
+<!-- i = 1 -->
+<table><tr>
+      <td>1</td>
+      <td>$${\color{purple} 4}$$</td>
+      <td>$${\color{purple} 5}$$</td>
+      <td>3</td>
+      <td>2</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table>
+
+<!-- i = 2 -->
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>$${\color{red} 5}$$</td>
+      <td>$${\color{red} 3}$$</td>
+      <td>2</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td>
+<td>--></td>  
+  <td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>$${\color{purple} 3}$$</td>
+      <td>$${\color{purple} 5}$$</td>
+      <td>2</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table>
+
+<!-- i = 3 -->
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>3</td>
+      <td>$${\color{red} 5}$$</td>
+      <td>$${\color{red} 2}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td>
+<td>--></td>  
+  <td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>3</td>
+      <td>$${\color{purple} 2}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table></br>
+
+  So, running the inner loop for a 2nd time, brought the 2nd max, to the 2nd rightmost position. Are you seeing the pattern here? While this is *technically* an optimization, it is really common... Notice that the first run of the inner loop took 5 itterations, the second run took 4. This is because we are using the fact that every time the inner loop runs we know for sure that one number is placed correctly. Since we know _where_ they are (filled to the right), we can confidently stop comparing those numbers because we know they are bigger than the rest. Like in our example, our first itteration brought 6 all the way to the right, becuase it was the biggest in the array. When we did the second itteration, we didn't compare 5 and 6 because we knew that something bigger than 5 was at the end of the array. We can make the same assumption for the next itteration, and the next and the next...
+<!-- k = 2 -->
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td>
+<td>--></td>  
+  <td><table><tr>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table>
+
+<!-- k = 3 -->
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td>
+<td>--></td>  
+  <td><table><tr>
+      <td>1</td>
+      <td>2</td>
+      <td>$${\color{green} 3}$$</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table>
+    
+<!-- k = 4 -->
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>2</td>
+      <td>$${\color{green} 3}$$</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td>
+<td>--></td>  
+  <td><table><tr>
+      <td>1</td>
+      <td>$${\color{green} 2}$$</td>
+      <td>$${\color{green} 3}$$</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table>
+    
+<!-- k = 5 -->
+<table><tr><td><table><tr>
+      <td>1</td>
+      <td>$${\color{green} 2}$$</td>
+      <td>$${\color{green} 3}$$</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td>
+<td>--></td>  
+  <td><table><tr>
+      <td>$${\color{green} 1}$$</td>
+      <td>$${\color{green} 2}$$</td>
+      <td>$${\color{green} 3}$$</td>
+      <td>$${\color{green} 4}$$</td>
+      <td>$${\color{green} 5}$$</td>
+      <td>$${\color{green} 6}$$</td>
+    </tr></table></td></tr></table></br>
+
+Hooray! Our array is sorted at last... Again the gist of it is that every run of the inner loop takes the next biggest value and pushes it as far right as possible, each time it runs we know for a fact that +1 element is sorted. If we run that inner loop 1 time for every item in the array we know for a fact that our array will be sorted. That's basically it, now you just have to code that. 
 
 ## **CODE**
+Using for loops:
+```cs
+public int[] BubbleSort(int[] arr) {
+    int temp;
+
+    for(int k = 0; k < arr.Length; k++) {
+        for(int i = 0; i < arr.Length - k - 1; i++) {
+            if(arr[i] > arr[i+1]) {
+                temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+            }
+        }
+    }
+
+    return arr;
+}
+```
+
+Using while loops:
+```cs
+public int[] BubbleSort(int[] arr) {
+    int k = 0;
+    int i = 0;
+
+    int temp;
+     
+    while(k < arr.Length) {
+        while(i < arr.Length - k - 1) {
+            if(arr[i] > arr[i+1]) {
+                temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+            }
+            i++;
+        }
+        i = 0;
+        k++;
+    }
+
+    return arr;
+}
+```
 ## **OPTIMIZATION**
+This is the ballerest one, the T is a generic type, which is constrained to be a number (hence the `where T : INumber<T>`). Don't worry about that too much
+```cs
+public static T[] BubbleSort<T>(T[] arr) where T : INumber<T> {
+    bool sorted = true;
+    T a;
+    T b;
+
+    T temp;
+
+    for(int k = 0; k < arr.Length; k++) {
+        for(int i = 0; i < arr.Length - k - 1; i++) {
+            a = arr[i];
+            b = arr[i + 1];
+
+            if(a > b) {
+                temp = a;
+                a = b;
+                b = temp;
+                sorted = false;
+            }
+        }
+        if(sorted) { break; }
+        sorted = true;
+    }
+
+    return arr;
+```
+
