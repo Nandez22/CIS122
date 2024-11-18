@@ -313,12 +313,14 @@ Think back to the [Inner Loop](#Inner-Loop) segment of this doc, we only wanted 
 
 This is our next problem, we only want to run the code we wrote if and only if a swap is needsed. As discussed before we only swap two values if the current value is greater than the next:
 ```cs
-int temp;
+public int[] BubbleSort(int[] arr){
+    int temp;
 
-if(arr[i] > arr[i+1]){
-    temp = arr[i];
-    arr[i] = arr[i+1];
-    arr[i+1] = temp;
+    if(arr[i] > arr[i+1]){
+        temp = arr[i];
+        arr[i] = arr[i+1];
+        arr[i+1] = temp;
+    }
 }
 ```
 This problem sounded simple, because it is. It only required a single if statment to solve, but you may have noticed some additional changes to our code. Most notably, we have replaced `a` and `b` with `arr[i]` and `arr[i+1]` respectivly. For these's changes we have made a couple of assumptions:
@@ -329,167 +331,64 @@ These assumptions will be addressed in the future, but don't freak out about var
 
 So now we have a code block that will swap two items in an array if and only if the current `i`th element is greater than the next `i+1`th. This brings us to the natural question of where does `i` come from? The answer to that is a loop...</br>
 
-Here is where the document diverges a bit, many programmers prefer different loops for a variety of reasons, most of which are valid. At the end of the day it's what you like and what makes the most sense for you. So, taking that into consideration the next portion of this document is split into two sections:
-_(click on them)_
+Now that we have our swapping logic done, we need to repeat it across the array. As mentioned previously the goal of the inner loop is to bring the largest value to the rightmost position by repeatedly swapping larger values to the right.
 
-<details open>
-  <summary>Using For Loops</summary>
+Since we have the swapping logic, the remainder is the 'repeating' component.
 
-  Now that we have our swapping logic done, we need to repeat it across the array. As mentioned previously the goal of the inner loop is to bring the largest value to the rightmost position by repeatedly swapping larger values to the right.
-
-  Since we have the swapping logic, the remainder is the 'repeating' component.
+<details>
+<summary> For Loop </summary>
 
 ```cs
-int temp;
+public int[] BubbleSort(int[] arr){
+    int temp;
 
-for(int i = 0; i < arr.Length - 1; i++) {
-    if(arr[i] > arr[i+1]) {
-        temp = arr[i];
-        arr[i] = arr[i+1];
-        arr[i+1] = temp;
+    for(int i = 0; i < arr.Length - 1; i++) {
+        if(arr[i] > arr[i+1]) {
+            temp = arr[i];
+            arr[i] = arr[i+1];
+            arr[i+1] = temp;
+        }
     }
 }
 ```
+
+</details>
+
+<details>
+<summary> While Loop</summary>
+
+```cs
+public int[] BubbleSort(int[] arr){
+    int temp;
+    int i = 0;
+
+    while(i < arr.Length - 1){
+        if(arr[i] > arr[i+1]) {
+            temp = arr[i];
+            arr[i] = arr[i+1];
+            arr[i+1] = temp;
+        }
+    }
+    i++;
+}
+```
+
+</details></br>
+
 This loop implementation is pretty standard, nothing too fancy going on. The only additional bit I want to touch on is the `i < arr.Length - 1` condition. When looping through the array, we are checking the value at index `i`, but we are also checking the value at `i+1`. If our condition were `i < arr.Length`, `i` would increase to `arr.Length - 1` in value. While that is not bad on its own, we need to remember the `i+1` check. If `i` = `arr.Length - 1`, then `i+1` == `arr.Length`. If you recall, the maximum index of an array is `arr.Length - 1` (since indices start at 0). This means that if our condition were `i < arr.Length`, checking `arr[i+1]` would go out of bounds and crash the program. The `-1` keeps it in bounds.</br>
 
 Ok, now for the outer loop, if you recall this is the simpler of the two since it's only goal is to repeat the inner loop. The main quesion is how many times?
 In the [Outer Loop](#outer-loop) section I mentioned that for every run of the inner loop, we knew as a fact that 1 additional element was sorted. If we sort 1 element every time the inner loop completes, then pretty clearly the loop needs to be ran once for every item in arr:
 
-```cs
-int temp;
-
-for(int k = 0; k < arr.Length; k++) {
-    for(int i = 0; i < arr.Length - k - 1; i++) {
-        if(arr[i] > arr[i+1]) {
-            temp = arr[i];
-            arr[i] = arr[i+1];
-            arr[i+1] = temp;
-         }
-     }
- }
-```
-
-Here is yet another really standard looking loop. If you notice, `k` is not really being used for other comparisons, which is usually a hall mark of these double loop algorithms. In fact, `k` is only being used in one place. If we look at the condition in our inner loop _(the one we just talked about)_, we now see the addition of `-k`:
-`i < arr.Length - k - 1`
-
-This is once again a product of an observation made in the [Outer Loop](#outer-loop) section. Recall that each time the inner loop is ran, another value is considered to be sorted. Since we are pushing the `k`th largest item to the `k`th rightmost position, we can assert that for every completion of the inner loop, we can traverse one less index in the next.
-
-For Example:
-
-<table>
-    <tr>
-    <td>Start</td>
-    <td>
-        <table>
-        <tr>
-        <td>1</td>
-        <td>5</td>
-        <td>4</td>
-        <td>6</td>
-        <td>3</td>
-        <td>2</td>
-        </tr>
-        </table>
-    </td>
-    </tr>
-    <tr>
-        <td>k = 0</td>
-        <td>
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>$${\color{green} 6}$$</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>k = 1</td>
-        <td>
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>$${\color{green} 5}$$</td>
-                    <td>$${\color{green} 6}$$</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>k = 2</td>
-        <td>
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>$${\color{green} 4}$$</td>
-                    <td>$${\color{green} 5}$$</td>
-                    <td>$${\color{green} 6}$$</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>k = 3</td>
-        <td>
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>$${\color{green} 3}$$</td>
-                    <td>$${\color{green} 4}$$</td>
-                    <td>$${\color{green} 5}$$</td>
-                    <td>$${\color{green} 6}$$</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>k = 4</td>
-        <td>
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>$${\color{green} 2}$$</td>
-                    <td>$${\color{green} 3}$$</td>
-                    <td>$${\color{green} 4}$$</td>
-                    <td>$${\color{green} 5}$$</td>
-                    <td>$${\color{green} 6}$$</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>k = 5</td>
-        <td>
-            <table>
-                <tr>
-                    <td>$${\color{green} 1}$$</td>
-                    <td>$${\color{green} 2}$$</td>
-                    <td>$${\color{green} 3}$$</td>
-                    <td>$${\color{green} 4}$$</td>
-                    <td>$${\color{green} 5}$$</td>
-                    <td>$${\color{green} 6}$$</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+<details>
+<summary> For Loop </summary>
 
 ```cs
 public int[] BubbleSort(int[] arr) {
     int temp;
 
     for(int k = 0; k < arr.Length; k++) {
-        for(int i = 0; i < arr.Length - k - 1; i++) {
+        for(int i = 0; i < arr.Length - 1; i++) {
             if(arr[i] > arr[i+1]) {
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -501,11 +400,12 @@ public int[] BubbleSort(int[] arr) {
     return arr;
 }
 ```
+
 </details>
 
 <details>
-  <summary>Using While Loops</summary>
-  
+<summary> While Loop </summary>
+
 ```cs
 public int[] BubbleSort(int[] arr) {
     int k = 0;
@@ -514,7 +414,7 @@ public int[] BubbleSort(int[] arr) {
     int temp;
      
     while(k < arr.Length) {
-        while(i < arr.Length - k - 1) {
+        while(i < arr.Length - 1) {
             if(arr[i] > arr[i+1]) {
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -529,11 +429,119 @@ public int[] BubbleSort(int[] arr) {
     return arr;
 }
 ```
-</details>
 
+A quick note that we have to reset `i` to zero after each full run of the inner loop. Just another thing we have to think about if we are using while loops.
+
+</details></br>
+
+Here is yet another really standard looking loop. If you notice, `k` is not really being used for other comparisons, which is usually a hall mark of these double loop algorithms. You will also notice if you run this code, it will in fact sort an array! However, it won't do that as fast as it could, that is what we will discuss in the [Optimization](#optimization) section below.
+
+> [!NOTE]
+> You may have noticed that we are still returning the array even thougn we are editing it in place. If you are thinking to yourself _"That seems redundant?"_, that would be because it is. This is very dependent on the application, in reality with in place sorts you can return _anything_...
 
 ## **OPTIMIZATION**
-This is the ballerest one, the T is a generic type, which is constrained to be a number (hence the `where T : INumber<T>`). Don't worry about that too much
+<!-- ... intro, explain n^2
+...first thing is reduce inner loop constraint by k -->
+
+
+This is once again a product of an observation made in the [Outer Loop](#outer-loop) section. Recall that each time the inner loop is ran, another value is considered to be sorted. Since we are pushing the `k`th largest item to the `k`th rightmost position, we can assert that for every completion of the inner loop, we can traverse one less index in the next.
+
+For Example:
+
+<table>
+    <tr>
+    <td>Start</td>
+    <td>
+        <table><tr>
+            <td>1</td>
+            <td>5</td>
+            <td>4</td>
+            <td>6</td>
+            <td>3</td>
+            <td>2</td>
+        </tr></table>
+    </td>
+    </tr><tr>
+    <td>k = 0</td>
+    <td>
+        <table><tr>
+            <td>1</td>
+            <td>4</td>
+            <td>5</td>
+            <td>3</td>
+            <td>2</td>
+            <td>$${\color{green} 6}$$</td>
+        </tr></table>
+    </td>
+    </tr><tr>
+    <td>k = 1</td>
+    <td>
+        <table><tr>
+            <td>1</td>
+            <td>4</td>
+            <td>3</td>
+            <td>2</td>
+            <td>$${\color{green} 5}$$</td>
+            <td>$${\color{green} 6}$$</td>
+        </tr></table>
+    </td>
+    </tr><tr>
+    <td>k = 2</td>
+    <td>
+        <table><tr>
+            <td>1</td>
+            <td>3</td>
+            <td>2</td>
+            <td>$${\color{green} 4}$$</td>
+            <td>$${\color{green} 5}$$</td>
+            <td>$${\color{green} 6}$$</td>
+        </tr></table>
+    </td>
+    </tr><tr>
+    <td>k = 3</td>
+    <td>
+        <table><tr>
+            <td>1</td>
+            <td>2</td>
+            <td>$${\color{green} 3}$$</td>
+            <td>$${\color{green} 4}$$</td>
+            <td>$${\color{green} 5}$$</td>
+            <td>$${\color{green} 6}$$</td>
+        </tr></table>
+    </td>
+    </tr><tr>
+    <td>k = 4</td>
+    <td>
+        <table><tr>
+            <td>1</td>
+            <td>$${\color{green} 2}$$</td>
+            <td>$${\color{green} 3}$$</td>
+            <td>$${\color{green} 4}$$</td>
+            <td>$${\color{green} 5}$$</td>
+            <td>$${\color{green} 6}$$</td>
+        </tr></table>
+    </td>
+    </tr><tr>
+    <td>k = 5</td>
+    <td>
+        <table><tr>
+            <td>$${\color{green} 1}$$</td>
+            <td>$${\color{green} 2}$$</td>
+            <td>$${\color{green} 3}$$</td>
+            <td>$${\color{green} 4}$$</td>
+            <td>$${\color{green} 5}$$</td>
+            <td>$${\color{green} 6}$$</td>
+        </tr></table>
+    </td>
+    </tr>
+</table>
+
+<!--Add both for and while code here>
+Introduce the idea of an already sorted or partially sorted array, explain how the default implementation expects the worst case, code for that too -->
+
+
+<!-- fin -->
+
 ```cs
 public static T[] BubbleSort<T>(T[] arr) where T : INumber<T> {
     bool sorted = true;
