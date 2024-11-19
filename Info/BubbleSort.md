@@ -441,27 +441,7 @@ Here is yet another standard-looking loop. If you notice, `k` is not being used 
 ## **OPTIMIZATION**
 Optimizing code is a massive rabbit hole, and even the end result of this section won't scratch the surface of "well-optimized" code. The main idea is to show how to reduce redundant operations and introduce you to time complexity.
 
-### Time Complexity
-Just like optimization, time complexity is a decently large subject that dips us into a bit of math. Because this is already long enough and I don't want to do math we are going to keep this brief.</br>
-<ins>Time Complexity</ins> is a measure of how many operations the algorithm has to do with respect to its input size. In other words, if we have an input of size `n`, how big is the output? (using `n`). One of the main usages of time complexity is to compare different algorithms. It might seem intuitive to just measure how long algorithms take to execute, be even on the same computer there are too many outside factors that could influence an algorithm runtime. Because of those factors we instead use time complexity to compare algorithms.
 
-Time complexity is broken into a few main categories, _Best Case_, _Average Case_, and _Worst Case_. While all of these are important, _Worst Case_ gets the most attention as it tells us how our algorithm will run at it's worst. Think about it for a second, if you had to bet on a 100m horse race, what would be the safer bet?
-
-|Horse|Best Case|Worst Case|
-|-|-|-|
-|A|25 Sec| 1 Min|
-|B|30 Sec|35 Sec|
-
-This is quite an extreme example, but hopefully you get the point. We can't judge algorithms based soley on their best case complexity. Hence why we are using worst case (this is standard).
-
-<ins>Worst Case</ins> complexity (Denoted as `O`, pronounced "big oh"), is the worst case complexity for an algorithm. Meaning that given an input of size `n`, the number of operations done by the algorithm will at worst be `O(something)`. That something is determined by an analysis of the algorithm. 
-
-Mathematically:</br>
-A function $`f(x)`$ is in $`O(g(x))`$ (denoted as $`f(x) \in O(g(x))`$) if and only if there exists positive constants $`c`$ and $`x_{0}`$ such that:</br>
-$`|f(x)| \leq c * |g(x)|`$ for all $`x \geq x_{0}`$
-
-
-...first thing is reduce inner loop constraint by k -->
 
 
 This is once again a product of an observation made in the [Outer Loop](#outer-loop) section. Recall that each time the inner loop is run, another value is considered to be sorted. Since we are pushing the `k`th largest item to the `k`th rightmost position, we can assert that for every completion of the inner loop, we can traverse one less index in the next.
