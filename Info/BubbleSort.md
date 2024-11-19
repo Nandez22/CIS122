@@ -275,19 +275,19 @@ So, running the inner loop for a 2nd time, brought the 2nd max, to the 2nd right
       <td>$${\color{green} 6}$$</td>
     </tr></table></td></tr></table></br>
 
-The result of the outer-loop is a sorted array! While there is not much more to address in this section, I want to leave you with another question that will be answered in the [Optimization](#OPTIMIZATION) section.</br>
-If we are given an array of length 5, how many time will the outer loop run? How about the inner loop>
+The result of the outer loop is a sorted array! While there is not much more to address in this section, I want to leave you with another question that will be answered in the [Optimization](#OPTIMIZATION) section.</br>
+If we are given an array of length 5, how many times will the outer loop run? How about the inner loop>
 
 ## **CODE**
-While algorithms can seem a bit daunting at first (yes even the simple ones), usually their implementation is quite elegant, so don't feel bad if you don't know how to code a bubble sort after reading about it. While the previous section was more open ended and much less technical, this one will be more direct. 
+While algorithms can seem a bit daunting at first (yes even the simple ones), usually their implementation is quite elegant, so don't feel bad if you don't know how to code a bubble sort after reading about it. While the previous section was more open-ended and much less technical, this one will be much more direct. 
 
 So without further ado, how do we code Bubble Sort, or any algorithm for that matter?
 
-The best way to go about solving these 'bigger' problems is to break them into their most granular parts. In this case the smallest problem we need to solve is swapping two array items. 
+The best way to go about solving these 'bigger' problems is to break them into their most granular parts. In this case, the smallest problem we need to solve is swapping two array items. 
 
-In some languages (like python), swapping is trivial. Unfortunatly using the best programming language comes with some downsides _(even saints sin)_, and swapping tends to throw off new programmers.
+In some languages (like Python), swapping is trivial. Unfortunately using the best programming language comes with some downsides _(even saints sin)_, and swapping tends to throw off new programmers.
 
-Most people immeadietly jump to something like:
+Most people immediately jump to something like:
 ```cs
 int a = 5;
 int b = 6;
@@ -298,7 +298,7 @@ b = a;
 
 But think for a minute, what would the output of this be?</br>
 It turns out that both `a = 6` and `b = 6`.
-It's like giving two apples to two people and having them swap apples without ever holding two at the same time. It cannot be done. Instead you need a third person:
+It's like giving two apples to two people and having them swap apples without ever holding two at the same time. It cannot be done. Instead, you need a third person:
 ```cs
 int temp;
 int a = 5;
@@ -308,10 +308,10 @@ temp = a;
 a = b;
 b = temp;
 ```
-Now our program properly makes `a = 6` and `b = 5`! With that the core of our problem is solved, but we only have a program that can swap two numbers...
+Now our program properly makes `a = 6` and `b = 5`! With that, the core of our problem is solved, but we only have a program that can swap two numbers...
 Think back to the [Inner Loop](#Inner-Loop) segment of this doc, we only wanted to swap two items in the array if a particular condition was true.
 
-This is our next problem, we only want to run the code we wrote if and only if a swap is needsed. As discussed before we only swap two values if the current value is greater than the next:
+This is our next problem, we only want to run the code we wrote if and only if a swap is needed. As discussed before we only swap two values if the current value is greater than the next:
 ```cs
 public int[] BubbleSort(int[] arr){
     int temp;
@@ -323,17 +323,16 @@ public int[] BubbleSort(int[] arr){
     }
 }
 ```
-This problem sounded simple, because it is. It only required a single if statment to solve, but you may have noticed some additional changes to our code. Most notably, we have replaced `a` and `b` with `arr[i]` and `arr[i+1]` respectivly. For these's changes we have made a couple of assumptions:
-1. The array is named `arr`, and it holds numbers
-2. `i` is declared somewhere
-
-These assumptions will be addressed in the future, but don't freak out about variables coming from nowhere.</br>
+This problem sounded simple because it is. It only required a single if statement to solve, but you may have noticed some additional changes to our code. Most notably, we have replaced `a` and `b` with `arr[i]` and `arr[i+1]` respectivly. If you recall from the [Innter Loop](#inner-loop) section, we discussed that we are comparing each value to the next.
 
 So now we have a code block that will swap two items in an array if and only if the current `i`th element is greater than the next `i+1`th. This brings us to the natural question of where does `i` come from? The answer to that is a loop...</br>
 
 Now that we have our swapping logic done, we need to repeat it across the array. As mentioned previously the goal of the inner loop is to bring the largest value to the rightmost position by repeatedly swapping larger values to the right.
 
 Since we have the swapping logic, the remainder is the 'repeating' component.
+
+> [!TIP]
+> Different programmers prefer different loops, click on the drop-down for the loop you prefer to see its code and any relevant notes!
 
 <details>
 <summary> For Loop </summary>
@@ -375,10 +374,10 @@ public int[] BubbleSort(int[] arr){
 
 </details></br>
 
-This loop implementation is pretty standard, nothing too fancy going on. The only additional bit I want to touch on is the `i < arr.Length - 1` condition. When looping through the array, we are checking the value at index `i`, but we are also checking the value at `i+1`. If our condition were `i < arr.Length`, `i` would increase to `arr.Length - 1` in value. While that is not bad on its own, we need to remember the `i+1` check. If `i` = `arr.Length - 1`, then `i+1` == `arr.Length`. If you recall, the maximum index of an array is `arr.Length - 1` (since indices start at 0). This means that if our condition were `i < arr.Length`, checking `arr[i+1]` would go out of bounds and crash the program. The `-1` keeps it in bounds.</br>
+This loop implementation is pretty standard, nothing too fancy going on. The only additional bit I want to touch on is the `i < arr.Length - 1` condition. When looping through the array, we are checking the value at index `i`, but we are also checking the value at `i+1`. If our condition were `i < arr.Length`, `i` would increase to `arr.Length - 1` in value. While that is not bad on its own, we need to remember we are checking `i+1`. If `i` = `arr.Length - 1`, then `i+1` == `arr.Length`. If you recall, the maximum index of an array is always 1 less than it's length (because indices starte at 0). This means that if our condition were `i < arr.Length`, checking `arr[i+1]` would go out of bounds and crash the program. The `-1` keeps it in bounds.</br>
 
-Ok, now for the outer loop, if you recall this is the simpler of the two since it's only goal is to repeat the inner loop. The main quesion is how many times?
-In the [Outer Loop](#outer-loop) section I mentioned that for every run of the inner loop, we knew as a fact that 1 additional element was sorted. If we sort 1 element every time the inner loop completes, then pretty clearly the loop needs to be ran once for every item in arr:
+Ok, now for the outer loop, if you recall this is the simpler of the two since its only goal is to repeat the inner loop. The main question is how many times?
+In the [Outer Loop](#outer-loop) section I mentioned that for every run of the inner loop, we knew as a fact that 1 additional element was sorted. If we sort 1 element every time the inner loop completes, then pretty clearly the loop needs to be run once for every item in arr:
 
 <details>
 <summary> For Loop </summary>
@@ -430,24 +429,44 @@ public int[] BubbleSort(int[] arr) {
 }
 ```
 
-A quick note that we have to reset `i` to zero after each full run of the inner loop. Just another thing we have to think about if we are using while loops.
+A quick note: we have to reset `i` to zero after each full run of the inner loop. Just another thing we have to think about if we are using while loops.
 
 </details></br>
 
-Here is yet another really standard looking loop. If you notice, `k` is not really being used for other comparisons, which is usually a hall mark of these double loop algorithms. You will also notice if you run this code, it will in fact sort an array! However, it won't do that as fast as it could, that is what we will discuss in the [Optimization](#optimization) section below.
+Here is yet another standard-looking loop. If you notice, `k` is not being used for other comparisons, which is usually a hallmark of these double-loop algorithms. You will also notice if you run this code, it will sort the array! However, it won't do that as fast as it could, that is what we will discuss in the [Optimization](#optimization) section below.
 
 > [!NOTE]
-> You may have noticed that we are still returning the array even thougn we are editing it in place. If you are thinking to yourself _"That seems redundant?"_, that would be because it is. This is very dependent on the application, in reality with in place sorts you can return _anything_...
+> You may have noticed that we are still returning the array even though we are editing it in place. If you are thinking to yourself _"That seems redundant?"_, that would be because it is. This is very dependent on the application, in reality with in-place sorts you can return _anything_...
 
 ## **OPTIMIZATION**
-<!-- ... intro, explain n^2
+Optimizing code is a massive rabbit hole, and even the end result of this section won't scratch the surface of "well-optimized" code. The main idea is to show how to reduce redundant operations and introduce you to time complexity.
+
+### Time Complexity
+Just like optimization, time complexity is a decently large subject that dips us into a bit of math. Because this is already long enough and I don't want to do math we are going to keep this brief.</br>
+<ins>Time Complexity</ins> is a measure of how many operations the algorithm has to do with respect to its input size. In other words, if we have an input of size `n`, how big is the output? (using `n`). One of the main usages of time complexity is to compare different algorithms. It might seem intuitive to just measure how long algorithms take to execute, be even on the same computer there are too many outside factors that could influence an algorithm runtime. Because of those factors we instead use time complexity to compare algorithms.
+
+Time complexity is broken into a few main categories, _Best Case_, _Average Case_, and _Worst Case_. While all of these are important, _Worst Case_ gets the most attention as it tells us how our algorithm will run at it's worst. Think about it for a second, if you had to bet on a 100m horse race, what would be the safer bet?
+
+|Horse|Best Case|Worst Case|
+|-|-|-|
+|A|25 Sec| 1 Min|
+|B|30 Sec|35 Sec|
+
+This is quite an extreme example, but hopefully you get the point. We can't judge algorithms based soley on their best case complexity. Hence why we are using worst case (this is standard).
+
+<ins>Worst Case</ins> complexity (Denoted as `O`, pronounced "big oh"), is the worst case complexity for an algorithm. Meaning that given an input of size `n`, the number of operations done by the algorithm will at worst be `O(something)`. That something is determined by an analysis of the algorithm. 
+
+Mathematically:</br>
+A function $`f(x)`$ is in $`O(g(x))`$ (denoted as $`f(x) \in O(g(x))`$) if and only if there exists positive constants $`c`$ and $`x_{0}`$ such that:</br>
+$`|f(x)| \leq c * |g(x)|`$ for all $`x \geq x_{0}`$
+
+
 ...first thing is reduce inner loop constraint by k -->
 
 
-This is once again a product of an observation made in the [Outer Loop](#outer-loop) section. Recall that each time the inner loop is ran, another value is considered to be sorted. Since we are pushing the `k`th largest item to the `k`th rightmost position, we can assert that for every completion of the inner loop, we can traverse one less index in the next.
+This is once again a product of an observation made in the [Outer Loop](#outer-loop) section. Recall that each time the inner loop is run, another value is considered to be sorted. Since we are pushing the `k`th largest item to the `k`th rightmost position, we can assert that for every completion of the inner loop, we can traverse one less index in the next.
 
 For Example:
-
 <table>
     <tr>
     <td>Start</td>
