@@ -19,7 +19,7 @@
 - **Step B2** In the search bar of the extensions tab, type `C# Dev Kit`.
 - **Step B3** Find the 'C# Dev Kit' by Microsoft extension, select and download it.
 
-![Image of C# Dev Kit extension](Assets/Images/csharpdevkit.png)
+![Image of C# Dev Kit extension](/Assets/Images/csharpdevkit.png)
 ‎ 
 - **Step 2** Make sure you are clicked out of the search bar and press `cmd` + `shift` + `p` to open the 'Command Pallet'
 - **Step 3** Type `.NET: Sign into Visual Studio account` and press `enter` (or click on the option at top of the screen)
