@@ -851,7 +851,7 @@ A loop is a local space, so at the start of each iteration memory will be alloca
 The way to avoid this is to declare all variables that you can as global. Keeping in mind that variables declared inside loops are also local, using while loops makes a lot of sense here since we would be effectively turning our for loops into while loops.
 
 >[!IMPORTANT]
->[I want to stress that we are now outside the realm of "this applies to all code", there are cases where you want local variables.]
+>I want to stress that we are now outside the realm of "this applies to all code", there are cases where you want local variables.
 
 ```cs
 public int[] BubbleSort(int[] arr){
