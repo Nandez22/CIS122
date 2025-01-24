@@ -1,7 +1,9 @@
+> [!WARNING]
+> This page is still being written and very all over the place. Take everything you read here with a *HUGE* grain of salt.
 ### Time Complexity
 Time complexity is a measure of how many operations an algorithm performs as a function of its input size. In simpler terms, given an input of size n, time complexity estimates how the algorithm's performance grows relative to n. One of the main purposes of time complexity is to compare different algorithms. While it might seem straightforward to measure execution time directly, real-world factors like hardware and background processes can influence runtime significantly. To avoid these inconsistencies, we use time complexity as an abstract, platform-independent measure.
 
-Time complexity is typically categorized into three cases: Best Case, Average Case, and Worst Case. While all are important, Worst Case is emphasized most because it tells us the maximum time an algorithm could take, ensuring reliability under all conditions.
+Time complexity is typically categorized into three cases: Best, Average, and Worst. While all are important, Worst Case is used most commonly because it tells us the maximum time an algorithm could take. As we will discuss, some algorithms can have a great best case complexity, but their average and worst cases don't tell the same story. 
 
 For example, which of the following horses would be the safer bet?
 
