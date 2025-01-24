@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> PLEASE PLEASE PLEASE CHECK THAT YOU HAVE MOVED THE **VSCODE APP** INTO YOUR `Applications` FOLDER! (This might fix your issue)
+
 > [!CAUTION]
 > If you already have VS Code installed, CLOSE IT before doing any of the steps. Do the steps as normal and wait to open VS Code until section 3.3 
 
