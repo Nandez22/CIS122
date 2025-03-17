@@ -890,5 +890,6 @@ You will also notice the addition of variables `a` and `b`. These are also an op
 
 This is why we want to access array indices as little as possible. This is yet another very small optimization, and far beyond what you would be expected to know at this point.
 
+Finally, if you are familiar with big-O notation you may have noticed that despite our optimizations our sort remains $`O(n^2)`$. Generally speaking, changing the time complexity of an algorithm changes the algorithm itself. So bubble sort with a better O notation is most likely not a bubble sort.
 
 So, that concludes bubble sort, thank you for reading (or not). Hopefully, this helps, if you have any further questions or suggestions, feel free to reach out or leave an issue on this repo. Thanks <3
