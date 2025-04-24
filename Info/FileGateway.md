@@ -1,6 +1,29 @@
+> [!IMPORTANT]
+> In this repo there is a full CS solution that you can download, check out and run complete with test data. </br>
+> I HIGHLY encourage you to give it a look.
+
 # File Gateway
+## Intro
+Filegateway is one of the fist problems that you are given (besides the Unity project) where you have to think about a handful of different steps and consider logic, data and IO at once.
+Because of that it can be overwhelming, but I promise it's pretty simple. I know the length of this writeup doesn't make it look that way, but I wanted to make sure that I covered every component of the problem.
+As mentioned in the note above there is an actual CS project that you can download and view / test in full that won't look as intimidating. I recommend that you read through this, then go download the project.
+Of course if I missed a detail or you have further questions feel free to reach out!
 
+## Problem
+The problem "prompt" is: "Given a `.csv` filepath and format, parse the data into 'Album' objects that can be placed into a list and operated on by code (in this case printed out)".</br>
+For the problem you will be given the path to a csv file, as well as some description of the data it's holding. 
 
+In this instance we have a csv with the columns `Title`, `Artist`, `ReleaseDate`, `Duration` and `NumSongs`.
+As mentioned we are working with Albums. 
+
+So knowing this we need to:
+* Create a class based off the csv structure
+* Create a method that gets data from the csv and converts it into a list of objects
+* Create a program that uses the method and file path to get and print out a list of these objects
+
+This seems like a lot so we will try and focus on each step and the decisions we need to make before going deep into the code.
+
+## Data
 We will begin with a sample of data, only a few entries so it doesn't look too intimidating:
 <table>
   <caption><b>Albums</b></caption>
@@ -113,4 +136,178 @@ For the others we need to find the proper conversion, parse or cast for each.
 
 > [!TIP]
 > Generally speaking the static `Convert` class will have conversions for most primitive types, while many objects like `DateTime` or `IPAddress` will have their own parse methods (some static some not)</br>
-> When working with types from inside of .NET (defined by Microsoft), there will generally be a method already made to do the conversion. However that is not always true for other libraries. *Just google it*
+> When working with types from inside of .NET (defined by Microsoft), there will generally be a method already made to do the conversion. However that is not always true for other libraries. *`When in doubt google it`*
+
+* Starting off with `ReleaseDate`, we want to convert a `string` into a `DateOnly`. Looking at the `Convert` class, you'll see a conversion for `DateTime`, but that's not what we want. Instead we will do `DateOnly.Parse()`.
+* For `Duration` we need to convert a `string` into a `double`. If you were looking through the `Convert` class (or read the wonderful tip I gave), you may have seen a nice method `Convert.ToDouble()`.
+* Finally for `NumSongs` we are going from `string` to `int`. Same as before using the `Convert` class, except this time there are options (scary). You will probably see `ToInt16`, `ToInt32` and `ToInt64`. These are all different data types, `short`, `int` and `long` respectivly. The difference being how large (or small) of an integer they can store (The numbers `16`, `32`, `64` refer to how many bits they take up in memory). The actual specifics of that are better left for CIS224 but it is good to be aware. Since we are converting to an `int` and ints are 32 bits, we want to use `ToInt32`.
+
+So we want a new Album object where:
+```cs
+album.Title = properties[0];
+album.Artist = properties[1];
+album.ReleaseDate = DateOnly.Parse(properties[2]);
+album.Duration = Convert.ToDouble(properties[3]);
+album.NumSongs = Covert.ToInt32(properties[4]);
+```
+
+## Putting It Together
+So far I have been a bit ambigous about the actual code part of the problem. The purpose was to break the problem down in a way were we could leave out some of the schemantics concerning *how* the solution is coded before actually doing so.
+Now that we have done that we can actually focus on the coding part.
+
+The first component being the Album class.
+As mentioned earlier out class lacked many of the standards we are acustom to, so lets add those back in:
+```cs
+public class Album {
+    public string Title { get; set; }
+    public string Artist { get; set; }
+    public DateOnly ReleaseDate { get; set; }
+    public double Duration { get; set; }
+    public int NumSongs { get; set; }
+    
+    public Album() : this("N/A", "N/A", DateOnly.MinValue, -1, -1){}
+
+    public Album(string title, string artist, DateOnly releaseDate, double duration, int numSongs) {
+        Title = title;
+        Artist = artist;
+        ReleaseDate = releaseDate;
+        Duration = duration;
+        NumSongs = numSongs;
+    }
+
+    public override string ToString() {
+        return $"{Title}\nBy: {Artist}\nReleased: {ReleaseDate}\nDuration: {Duration}\nSongs: {NumSongs}\n\n";
+    }
+}
+```
+Class structure has been well covered at this point in the class, so I won't really elaborate on any of the code here.
+However now that we have a full picture of what out class actually looks like, we can elaborate on converting a csv into Album objects.
+
+Let's start back with the code we started earlier:
+```cs
+public static List<Album> ParseCSV(string filepath) {
+    string[] rows = File.ReadAllLines(filepath);
+}
+```
+
+Now we need to expand, firstly lets look at what we need to do:
+- [x] Take in a csv
+- [x] Get a list of all the rows
+- [ ] Break each row into Album properties
+- [ ] Convert strings to expected types
+- [ ] Create new `Album` object and add it to output list
+
+Going down the list:
+
+### Break Each Row Into Album Properties
+Luckily we already went over this, yes it was only for one row but we can easily make it work for multiple:
+
+```cs
+public static List<Album> ParseCSV(string filepath) {
+    string[] rows = File.ReadAllLines(filepath);
+    string[] album;
+
+    for(int i = 1; i < rows.Length; i++) {
+        album = rows[i].Split(',');
+    }
+}
+```
+- [x] Break each row into Album properties
+
+We need to put our split function into a loop because we need to create an album object out of *each* row in the csv.</br>
+The reason I added `album` outside of the loop is mostly personal preference.</br>
+*Technically* it is a small optimization, but again that is not a today topic, just know it can be done either way and the way you choose won't help or hurt your solution.
+
+### Convert Strings To Expected Types 
+Now we have `album` which is a string array that holds each property of one `Album` in our csv. (all of the columns of one row)
+As we went over already, we need to parse this information into usable datatypes, however this time we have a proper constructor so we can do something that looks a little different:
+
+```cs
+DateOnly releaseDate = DateOnly.Parse(album[2]);
+double duration = Convert.ToDouble(album[3]);
+int numSongs = Convert.ToInt32(album[4]);
+new Album(album[0], album[1], releaseDate, duration, numSongs);
+```
+- [x] Convert strings to expected types
+
+### Create And Add New Album To Output List
+Implementing this into our code is really simple, but I will be making a few changes. (Again these are out of personal preference):
+```cs
+public static List<Album> ParseCSV(string filepath) {
+     List<Album> albums = new();
+     string[] rows = File.ReadAllLines(filepath);
+     string[] album;
+
+     DateOnly releaseDate;
+     double duration;
+     int numSongs;
+
+     for(int i = 1; i < rows.Length; i++) {
+         album = rows[i].Split(',');
+
+         releaseDate = DateOnly.Parse(album[2]);
+         duration = Convert.ToDouble(album[3]);
+         numSongs = Convert.ToInt32(album[4]);
+         albums.Add(new Album(album[0], album[1], releaseDate, duration, numSongs));
+     }
+
+     return albums;
+ }
+```
+- [x] Create new `Album` object and add it to output list
+You will also notice that I have added the new `Album` object to a list. Remember we need to 
+
+## Full Method
+```cs
+public class AlbumParser {
+    public static List<Album> ParseCSV(string filepath) {
+        List<Album> albums = new();
+        string[] rows = File.ReadAllLines(filepath);
+        string[] album;
+
+        DateOnly releaseDate;
+        double duration;
+        int numSongs;
+
+
+        for(int i = 1; i < rows.Length; i++) {
+            album = rows[i].Split(',');
+
+            releaseDate = DateOnly.Parse(album[2]);
+            duration = Convert.ToDouble(album[3]);
+            numSongs = Convert.ToInt32(album[4]);
+            albums.Add(new Album(album[0], album[1], releaseDate, duration, numSongs));
+        }
+
+        return albums;
+    }
+}
+```
+
+## Running it in Main
+Now that we have a proper method to parse the csv into `Album` objects, we can call it in our program.
+`filePath` will be unique to your use case, and will likely result in you doing some troubleshooting.
+
+```cs
+public static void Main(string[] args) {
+    string filePath = "somewhereonyourcomputer";
+
+    List<Album> albums = AlbumParser.ParseCSV(filePath);
+    foreach(Album a in albums) {
+        Console.WriteLine(a);
+    }
+}
+```
+
+## Final Notes
+You may notice that if you attempt to use test data with commas, IE: 
+* `IGOR,"Tyler, The Creator",2019-05-17,39.49,12`
+* `Good Kid, M.A.A.D City,Kendrick Lamar,2012-10-22,68.32,12`
+You are going to get errors because the commas in `Good kid, M.A.A.D City` and `Tyler, The Creator` will cause the `.Split()` method to splite the string earlier than expected.
+There are ways to get around this which I encourage you to reasearch, but I just wanted to point out that systems like this are rarley full proof. 
+
+> [!IMPORTANT]
+> In this repo there is a full CS solution that you can download, check out and run complete with test data. </br>
+> I HIGHLY encourage you to give it a look.
+
+* If you get an error that the csv is not found, you will need to right click on it, select `properties` and set `Build Action` to `Content` and `Copy to Output Directory` to `Copy if newer` or `Copy Always`.
