@@ -1,6 +1,6 @@
 > [!IMPORTANT]
-> In this repo there is a full CS solution that you can download, check out and run complete with test data. </br>
-> I HIGHLY encourage you to give it a look.
+> In this repo there is a [FULL CS SOLUTION](../Examples/FileGateway/FileGateway) that you can download, check out and run complete with test data. </br>
+> I HIGHLY encourage you to give it a look. (You can download it [here]() aswell)
 
 # File Gateway
 ## Intro
@@ -307,7 +307,7 @@ You are going to get errors because the commas in `Good kid, M.A.A.D City` and `
 There are ways to get around this which I encourage you to reasearch, but I just wanted to point out that systems like this are rarley full proof. 
 
 > [!IMPORTANT]
-> In this repo there is a full CS solution that you can download, check out and run complete with test data. </br>
-> I HIGHLY encourage you to give it a look.
+> In this repo there is a [FULL CS SOLUTION](../Examples/FileGateway/FileGateway) that you can download, check out and run complete with test data. </br>
+> I HIGHLY encourage you to give it a look. (You can download it [here]() aswell)
 
 * If you get an error that the csv is not found, you will need to right click on it, select `properties` and set `Build Action` to `Content` and `Copy to Output Directory` to `Copy if newer` or `Copy Always`.
