@@ -1,6 +1,6 @@
 > [!IMPORTANT]
 > In this repo there is a [FULL CS SOLUTION](../Examples/FileGateway/FileGateway) that you can download, check out and run complete with test data. </br>
-> I HIGHLY encourage you to give it a look. (You can download it [here]() aswell)
+> I HIGHLY encourage you to give it a look. (You can download it [HERE](https://github.com/Nandez22/CIS122/releases/download/FileGatewayExample/FileGateway.zip) aswell)
 
 # File Gateway
 ## Intro
@@ -308,6 +308,6 @@ There are ways to get around this which I encourage you to reasearch, but I just
 
 > [!IMPORTANT]
 > In this repo there is a [FULL CS SOLUTION](../Examples/FileGateway/FileGateway) that you can download, check out and run complete with test data. </br>
-> I HIGHLY encourage you to give it a look. (You can download it [here]() aswell)
+> I HIGHLY encourage you to give it a look. (You can download it [HERE](https://github.com/Nandez22/CIS122/releases/download/FileGatewayExample/FileGateway.zip) aswell)
 
 * If you get an error that the csv is not found, you will need to right click on it, select `properties` and set `Build Action` to `Content` and `Copy to Output Directory` to `Copy if newer` or `Copy Always`.
