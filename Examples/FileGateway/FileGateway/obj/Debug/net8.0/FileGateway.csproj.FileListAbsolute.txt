@@ -1,0 +1,15 @@
+C:\Users\joeco\source\repos\FileGateway\FileGateway\bin\Debug\net8.0\FileGateway.exe
+C:\Users\joeco\source\repos\FileGateway\FileGateway\bin\Debug\net8.0\FileGateway.deps.json
+C:\Users\joeco\source\repos\FileGateway\FileGateway\bin\Debug\net8.0\FileGateway.runtimeconfig.json
+C:\Users\joeco\source\repos\FileGateway\FileGateway\bin\Debug\net8.0\FileGateway.dll
+C:\Users\joeco\source\repos\FileGateway\FileGateway\bin\Debug\net8.0\FileGateway.pdb
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.AssemblyInfoInputs.cache
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.AssemblyInfo.cs
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.csproj.CoreCompileInputs.cache
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.dll
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\refint\FileGateway.dll
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.pdb
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\FileGateway.genruntimeconfig.cache
+C:\Users\joeco\source\repos\FileGateway\FileGateway\obj\Debug\net8.0\ref\FileGateway.dll
+C:\Users\joeco\source\repos\FileGateway\FileGateway\bin\Debug\net8.0\Data\albums.csv
