@@ -191,11 +191,9 @@ public static List<Album> ParseCSV(string filepath) {
 ```
 
 Now we need to expand, firstly let's look at what we need to do:
-- [x] Take in a CSV
-- [x] Get a list of all the rows
-- [ ] Break each row into Album properties
-- [ ] Convert strings to expected types
-- [ ] Create a new `Album` object and add it to the output list
+- Break each row into Album properties
+- Convert strings to expected types
+- Create a new `Album` object and add it to the output list
 
 Going down the list:
 
@@ -212,8 +210,6 @@ public static List<Album> ParseCSV(string filepath) {
     }
 }
 ```
-- [x] Break each row into Album properties
-
 We need to put our split function into a loop because we need to create an album object out of *each* row in the CSV.</br>
 The reason I added `album` outside of the loop is mostly personal preference.</br>
 *Technically* it is a small optimization, but again that is not a today topic, just know it can be done either way and the way you choose won't help or hurt your solution.
@@ -228,7 +224,6 @@ double duration = Convert.ToDouble(album[3]);
 int numSongs = Convert.ToInt32(album[4]);
 new Album(album[0], album[1], releaseDate, duration, numSongs);
 ```
-- [x] Convert strings to expected types
 
 ### Create And Add New Album To Output List
 Implementing this into our code is simple, but I will be making a few changes. (Again these are out of personal preference):
@@ -254,8 +249,10 @@ public static List<Album> ParseCSV(string filepath) {
      return albums;
  }
 ```
-- [x] Create a new `Album` object and add it to the output list
-You will also notice that I have added the new `Album` object to a list. Remember we need to 
+You will also notice that I have added the new `Album` object to a list. Remember we needed to output a list of `Album` objects...</br>
+The main differences here with the examples I have shown are that:
+- `relseaseDate`, `duration`, and `numSongs` have been declared separately from where they are being assigned. This is the same logic as the `album` array, mostly personal preference but also a small optimization.
+- We are not saving the new `Album` to a variable before we add it to a list. Since we aren't using the object anywhere else, it doesn't really make sense to create a temporary variable just to use it one line later. Knowing that there is something to be said about readability. If something makes it easier for you to read and/or understand the code, do it. Even if it is less "optimal", or not what I did here. In this case, since we are dealing with a relatively small constructor, it's pretty easy to read everything. If that wasn't the case, that would be a very good argument to store the new `Album` in some kind of temp variable.
 
 ## Full Method
 ```cs
